@@ -30,8 +30,12 @@ export function analyzeData(data: UnifiedData[]): AnalysisResults {
   const mediaCosts = mediaGames.map(d => d.Cost);
   const mediaImpressions = mediaGames.map(d => d.Impressions);
   const mediaClicks = mediaGames.map(d => d.Clicks || 0);
-  const mediaReach = mediaGames.map(d => d.Reach || 0);
-  const mediaFrequency = mediaGames.map(d => (d.Reach && d.Reach > 0) ? d.Impressions / d.Reach : 0);
+  // Apply 75% deduplication factor to reach to account for cross-DMA overlap
+  const mediaReach = mediaGames.map(d => (d.Reach || 0) * 0.75);
+  const mediaFrequency = mediaGames.map(d => {
+    const deduplicatedReach = (d.Reach || 0) * 0.75;
+    return deduplicatedReach > 0 ? d.Impressions / deduplicatedReach : 0;
+  });
 
   const costRatingCorr = pearsonCorrelation(mediaCosts, mediaRatings);
   const costRatingPValue = correlationPValue(costRatingCorr, mediaCosts.length);

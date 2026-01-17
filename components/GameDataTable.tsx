@@ -78,6 +78,8 @@ export default function GameDataTable({ unified, avgNoMediaRating, avgNoMediaVie
     const count = unified.filter(d => d['Game Date'] === game.date).length;
     game.avgRating = game.avgRating / count;
     game.avgViewership = game.avgViewership / count;
+    // Apply 75% deduplication factor to account for cross-DMA overlap
+    game.reach = game.reach * 0.75;
     game.frequency = game.reach > 0 ? game.impressions / game.reach : 0;
     game.ratingLift = avgNoMediaRating > 0 ? ((game.avgRating - avgNoMediaRating) / avgNoMediaRating) * 100 : 0;
     game.viewershipLift = avgNoMediaViewership > 0 ? ((game.avgViewership - avgNoMediaViewership) / avgNoMediaViewership) * 100 : 0;
