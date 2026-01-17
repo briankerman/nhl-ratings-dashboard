@@ -1,23 +1,38 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AnalysisResults } from '@/lib/types';
+import { analyzeData, aggregateByDMA, aggregateByDate } from '@/lib/dataProcessor';
 import MetricsGrid from './MetricsGrid';
 import ChartSection from './ChartSection';
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/data')
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
+    // Load data directly from public folder
+    fetch('/data.json')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(jsonData => {
+        const unified = jsonData.unified;
+
+        // Process data client-side
+        const analysis = analyzeData(unified);
+        const byDMA = aggregateByDMA(unified);
+        const byDate = aggregateByDate(unified);
+
+        setData({ unified, analysis, byDMA, byDate });
         setLoading(false);
       })
       .catch(err => {
         console.error('Error loading data:', err);
+        setError(err.message);
         setLoading(false);
       });
   }, []);
@@ -26,6 +41,14 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white text-2xl">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-red-500 text-xl">Error: {error}</div>
       </div>
     );
   }
@@ -42,7 +65,7 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
-        {data && (
+        {data && data.analysis && (
           <>
             <MetricsGrid analysis={data.analysis} />
             <ChartSection
@@ -56,17 +79,7 @@ export default function Dashboard() {
         {!data && (
           <div className="bg-gray-900 rounded-lg p-12 text-center">
             <h2 className="text-2xl font-semibold mb-4">No Data Available</h2>
-            <p className="text-gray-400 mb-6">
-              Upload your data files to Vercel Blob Storage to get started.
-            </p>
-            <a
-              href="https://vercel.com/docs/storage/vercel-blob"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-white text-black px-6 py-3 rounded-lg font-medium hover:bg-gray-200 transition-colors"
-            >
-              Learn About Vercel Blob
-            </a>
+            <p className="text-gray-400">Failed to load data</p>
           </div>
         )}
       </main>
