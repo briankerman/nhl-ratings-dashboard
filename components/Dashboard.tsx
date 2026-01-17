@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { analyzeData, aggregateByDMA, aggregateByDate } from '@/lib/dataProcessor';
 import MetricsGrid from './MetricsGrid';
 import ChartSection from './ChartSection';
+import GameDataTable from './GameDataTable';
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
@@ -88,6 +89,12 @@ export default function Dashboard() {
                 Overview
               </button>
               <button
+                onClick={() => scrollToSection('game-data')}
+                className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
+              >
+                Game Data
+              </button>
+              <button
                 onClick={() => scrollToSection('dma-analysis')}
                 className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
               >
@@ -98,12 +105,6 @@ export default function Dashboard() {
                 className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
               >
                 Trends
-              </button>
-              <button
-                onClick={() => scrollToSection('correlation')}
-                className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
-              >
-                Correlation
               </button>
             </nav>
           </div>
@@ -116,6 +117,13 @@ export default function Dashboard() {
           <>
             <div id="metrics">
               <MetricsGrid analysis={data.analysis} />
+            </div>
+            <div className="mt-12">
+              <GameDataTable
+                unified={data.unified}
+                avgNoMediaRating={data.analysis.avgNoMediaRating}
+                avgNoMediaViewership={data.analysis.avgNoMediaViewership}
+              />
             </div>
             <ChartSection
               unified={data.unified}

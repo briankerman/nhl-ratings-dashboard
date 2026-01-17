@@ -42,6 +42,9 @@ export interface UnifiedData {
   CPM: number;
   Reach?: number;
   Frequency?: number;
+  Clicks?: number;
+  Network?: string;
+  DMA_normalized?: string;
 }
 
 export interface AnalysisResults {
@@ -53,9 +56,17 @@ export interface AnalysisResults {
   costCorrelationPValue: number;
   impressionsCorrelation: number;
   impressionsCorrelationPValue: number;
+  clicksCorrelation: number;
+  clicksCorrelationPValue: number;
+  reachCorrelation: number;
+  reachCorrelationPValue: number;
   totalSpend: number;
   totalImpressions: number;
   avgCPM: number;
   mediaGames: number;
   noMediaGames: number;
+  avgMediaRating: number;
+  avgNoMediaRating: number;
+  avgMediaViewership: number;
+  avgNoMediaViewership: number;
 }

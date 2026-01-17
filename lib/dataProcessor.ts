@@ -29,12 +29,20 @@ export function analyzeData(data: UnifiedData[]): AnalysisResults {
   // Correlation analysis (only for media games)
   const mediaCosts = mediaGames.map(d => d.Cost);
   const mediaImpressions = mediaGames.map(d => d.Impressions);
+  const mediaClicks = mediaGames.map(d => d.Clicks || 0);
+  const mediaReach = mediaGames.map(d => d.Reach || 0);
 
   const costRatingCorr = pearsonCorrelation(mediaCosts, mediaRatings);
   const costRatingPValue = correlationPValue(costRatingCorr, mediaCosts.length);
 
   const impRatingCorr = pearsonCorrelation(mediaImpressions, mediaRatings);
   const impRatingPValue = correlationPValue(impRatingCorr, mediaImpressions.length);
+
+  const clicksRatingCorr = pearsonCorrelation(mediaClicks, mediaRatings);
+  const clicksRatingPValue = correlationPValue(clicksRatingCorr, mediaClicks.length);
+
+  const reachRatingCorr = pearsonCorrelation(mediaReach, mediaRatings);
+  const reachRatingPValue = correlationPValue(reachRatingCorr, mediaReach.length);
 
   // Summary metrics
   const totalSpend = mediaGames.reduce((sum, d) => sum + d.Cost, 0);
@@ -50,11 +58,19 @@ export function analyzeData(data: UnifiedData[]): AnalysisResults {
     costCorrelationPValue: costRatingPValue,
     impressionsCorrelation: impRatingCorr,
     impressionsCorrelationPValue: impRatingPValue,
+    clicksCorrelation: clicksRatingCorr,
+    clicksCorrelationPValue: clicksRatingPValue,
+    reachCorrelation: reachRatingCorr,
+    reachCorrelationPValue: reachRatingPValue,
     totalSpend,
     totalImpressions,
     avgCPM,
     mediaGames: mediaGames.length,
     noMediaGames: noMediaGames.length,
+    avgMediaRating,
+    avgNoMediaRating,
+    avgMediaViewership,
+    avgNoMediaViewership,
   };
 }
 
