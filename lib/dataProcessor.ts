@@ -39,7 +39,7 @@ export function analyzeData(data: UnifiedData[]): AnalysisResults {
   // Summary metrics
   const totalSpend = mediaGames.reduce((sum, d) => sum + d.Cost, 0);
   const totalImpressions = mediaGames.reduce((sum, d) => sum + d.Impressions, 0);
-  const avgCPM = (totalSpend / totalImpressions) * 1000;
+  const avgCPM = totalImpressions > 0 ? (totalSpend / totalImpressions) * 1000 : 0;
 
   return {
     ratingLift,
