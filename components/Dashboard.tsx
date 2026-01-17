@@ -63,43 +63,45 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="bg-black border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <header className="bg-black border-b border-gray-700">
+        <div className="max-w-7xl mx-auto px-8 py-6">
           <div className="flex items-center justify-between">
             {/* Logo and Title */}
-            <div className="flex items-center gap-8">
-              <img src="/nhl-logo.png" alt="NHL" className="h-16 w-auto" />
-              <div className="border-l border-gray-600 pl-8">
-                <h1 className="text-2xl font-bold tracking-wider">
-                  MEDIA RATINGS <span className="font-light text-gray-400">ANALYZER</span>
+            <div className="flex items-center gap-6">
+              <img src="/nhl-logo.png" alt="NHL" className="h-20 w-auto brightness-110" />
+              <div className="border-l-2 border-gray-600 pl-6 h-16 flex flex-col justify-center">
+                <h1 className="text-3xl font-black tracking-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.02em' }}>
+                  MEDIA RATINGS <span className="font-normal text-gray-500">ANALYZER</span>
                 </h1>
-                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Official League Tool</p>
+                <p className="text-[10px] text-gray-600 uppercase tracking-[0.2em] mt-1.5" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                  OFFICIAL LEAGUE TOOL
+                </p>
               </div>
             </div>
 
             {/* Navigation */}
-            <nav className="flex gap-6">
+            <nav className="flex gap-8">
               <button
                 onClick={() => scrollToSection('metrics')}
-                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+                className="text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-wider font-medium"
               >
                 Overview
               </button>
               <button
                 onClick={() => scrollToSection('dma-analysis')}
-                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+                className="text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-wider font-medium"
               >
                 DMA Analysis
               </button>
               <button
                 onClick={() => scrollToSection('trends')}
-                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+                className="text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-wider font-medium"
               >
                 Trends
               </button>
               <button
                 onClick={() => scrollToSection('correlation')}
-                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+                className="text-sm text-gray-400 hover:text-white transition-colors uppercase tracking-wider font-medium"
               >
                 Correlation
               </button>
