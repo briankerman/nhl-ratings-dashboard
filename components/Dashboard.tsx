@@ -68,7 +68,9 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             {/* Logo and Title */}
             <div className="flex items-center gap-6">
-              <img src="/nhl-logo.png" alt="NHL" className="h-20 w-auto brightness-110" />
+              <div className="bg-white rounded-full p-2 flex items-center justify-center">
+                <img src="/nhl-logo.png" alt="NHL" className="h-16 w-auto" />
+              </div>
               <div className="border-l-2 border-gray-600 pl-6 h-16 flex flex-col justify-center">
                 <h1 className="text-3xl font-black tracking-tight" style={{ fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '0.02em' }}>
                   MEDIA RATINGS <span className="font-normal text-gray-500">ANALYZER</span>
