@@ -60,6 +60,8 @@ export interface AnalysisResults {
   clicksCorrelationPValue: number;
   reachCorrelation: number;
   reachCorrelationPValue: number;
+  frequencyCorrelation: number;
+  frequencyCorrelationPValue: number;
   totalSpend: number;
   totalImpressions: number;
   avgCPM: number;
