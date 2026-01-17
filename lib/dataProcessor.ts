@@ -3,8 +3,9 @@ import { mean, tTest, pearsonCorrelation, correlationPValue, percentageChange } 
 
 export function analyzeData(data: UnifiedData[]): AnalysisResults {
   // Split into media vs no-media games
-  const mediaGames = data.filter(d => d.Has_Media);
-  const noMediaGames = data.filter(d => !d.Has_Media);
+  // Handle Has_Media as boolean, number (1/0), or string
+  const mediaGames = data.filter(d => d.Has_Media === true || d.Has_Media === 1 || d.Has_Media === '1' || d.Has_Media === 'True');
+  const noMediaGames = data.filter(d => !d.Has_Media || d.Has_Media === 0 || d.Has_Media === '0' || d.Has_Media === 'False');
 
   // Extract metrics
   const mediaRatings = mediaGames.map(d => d.P2RTG);
@@ -77,7 +78,7 @@ export function aggregateByDMA(data: UnifiedData[]): Record<string, {
   const result: Record<string, any> = {};
 
   Object.entries(dmaMap).forEach(([dma, rows]) => {
-    const mediaRows = rows.filter(r => r.Has_Media);
+    const mediaRows = rows.filter(r => r.Has_Media === true || r.Has_Media === 1 || r.Has_Media === '1' || r.Has_Media === 'True');
     result[dma] = {
       games: rows.length,
       avgRating: mean(rows.map(r => r.P2RTG)),

@@ -32,13 +32,13 @@ export interface DMAMapping {
 export interface UnifiedData {
   DMA: string;
   'Game Date': string;
-  'Home Team': string;
-  'Away Team': string;
+  'Home Team'?: string;
+  'Away Team'?: string;
   P2RTG: number;
   P2IMP: number;
   Cost: number;
   Impressions: number;
-  Has_Media: boolean;
+  Has_Media: boolean | number | string;
   CPM: number;
   Reach?: number;
   Frequency?: number;
