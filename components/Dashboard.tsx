@@ -5,6 +5,7 @@ import { analyzeData, aggregateByDMA, aggregateByDate } from '@/lib/dataProcesso
 import MetricsGrid from './MetricsGrid';
 import ChartSection from './ChartSection';
 import GameDataTable from './GameDataTable';
+import PlatformAnalysis from './PlatformAnalysis';
 
 export default function Dashboard() {
   const [data, setData] = useState<any>(null);
@@ -89,6 +90,12 @@ export default function Dashboard() {
                 Overview
               </button>
               <button
+                onClick={() => scrollToSection('platform-analysis')}
+                className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
+              >
+                Platforms
+              </button>
+              <button
                 onClick={() => scrollToSection('game-data')}
                 className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
               >
@@ -98,7 +105,7 @@ export default function Dashboard() {
                 onClick={() => scrollToSection('dma-analysis')}
                 className="text-sm text-gray-700 hover:text-black transition-colors uppercase tracking-wider font-medium"
               >
-                DMA Analysis
+                DMAs
               </button>
               <button
                 onClick={() => scrollToSection('trends')}
@@ -117,6 +124,13 @@ export default function Dashboard() {
           <>
             <div id="metrics">
               <MetricsGrid analysis={data.analysis} />
+            </div>
+            <div className="mt-12">
+              <PlatformAnalysis
+                unified={data.unified}
+                avgNoMediaRating={data.analysis.avgNoMediaRating}
+                avgNoMediaViewership={data.analysis.avgNoMediaViewership}
+              />
             </div>
             <div className="mt-12">
               <GameDataTable
