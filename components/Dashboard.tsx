@@ -53,13 +53,58 @@ export default function Dashboard() {
     );
   }
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="border-b border-gray-800">
-        <div className="container mx-auto px-6 py-8">
-          <h1 className="text-4xl font-bold">NHL Paid Media Impact Analysis</h1>
-          <p className="text-gray-400 mt-2">Local TV Ratings & Viewership Performance</p>
+      <header className="bg-black border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo and Title */}
+            <div className="flex items-center gap-8">
+              <img src="/nhl-logo.png" alt="NHL" className="h-16 w-auto" />
+              <div className="border-l border-gray-600 pl-8">
+                <h1 className="text-2xl font-bold tracking-wider">
+                  MEDIA RATINGS <span className="font-light text-gray-400">ANALYZER</span>
+                </h1>
+                <p className="text-xs text-gray-500 uppercase tracking-widest mt-1">Official League Tool</p>
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex gap-6">
+              <button
+                onClick={() => scrollToSection('metrics')}
+                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+              >
+                Overview
+              </button>
+              <button
+                onClick={() => scrollToSection('dma-analysis')}
+                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+              >
+                DMA Analysis
+              </button>
+              <button
+                onClick={() => scrollToSection('trends')}
+                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+              >
+                Trends
+              </button>
+              <button
+                onClick={() => scrollToSection('correlation')}
+                className="text-sm text-gray-300 hover:text-white transition-colors uppercase tracking-wide"
+              >
+                Correlation
+              </button>
+            </nav>
+          </div>
         </div>
       </header>
 
@@ -67,7 +112,9 @@ export default function Dashboard() {
       <main className="container mx-auto px-6 py-8">
         {data && data.analysis && (
           <>
-            <MetricsGrid analysis={data.analysis} />
+            <div id="metrics">
+              <MetricsGrid analysis={data.analysis} />
+            </div>
             <ChartSection
               unified={data.unified}
               byDMA={data.byDMA}

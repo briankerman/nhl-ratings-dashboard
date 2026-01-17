@@ -32,9 +32,9 @@ export default function ChartSection({ unified, byDMA, byDate }: ChartSectionPro
   }));
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 mt-12">
       {/* Top DMAs by Spend */}
-      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+      <div id="dma-analysis" className="bg-gray-900 rounded-lg p-6 border border-gray-800 scroll-mt-24">
         <h2 className="text-2xl font-bold mb-6">Top DMAs by Spend</h2>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={dmaChartData}>
@@ -52,7 +52,7 @@ export default function ChartSection({ unified, byDMA, byDate }: ChartSectionPro
       </div>
 
       {/* Performance by Date */}
-      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+      <div id="trends" className="bg-gray-900 rounded-lg p-6 border border-gray-800 scroll-mt-24">
         <h2 className="text-2xl font-bold mb-6">Performance Over Time</h2>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={dateChartData}>
@@ -71,7 +71,7 @@ export default function ChartSection({ unified, byDMA, byDate }: ChartSectionPro
       </div>
 
       {/* Cost vs Rating Scatter */}
-      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
+      <div id="correlation" className="bg-gray-900 rounded-lg p-6 border border-gray-800 scroll-mt-24">
         <h2 className="text-2xl font-bold mb-6">Cost vs Rating Correlation</h2>
         <ResponsiveContainer width="100%" height={400}>
           <ScatterChart>
